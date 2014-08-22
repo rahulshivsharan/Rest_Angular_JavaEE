@@ -1,0 +1,13 @@
+<div class="well">
+	<form role="form">
+		<div class="form-group">
+			<label for="studentName">Student Name</label>
+			<input type="text" class="form-control" id="studentName" ng-model="studentName" placeholder="Enter Student Name" />
+		</div>
+		<div class="form-group">
+			<label for="deptName">Department Name</label>
+			<input type="text" class="form-control" id="deptName" ng-model="deptName" placeholder="Enter Department" />
+		</div>
+		<button type="button" class="btn btn-default" ng-click="addStudent(studentName,deptName)">Add</button>
+	</form>
+</div>
