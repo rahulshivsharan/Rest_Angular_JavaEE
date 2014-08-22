@@ -1,0 +1,13 @@
+<div class="well">
+	<form role="form">
+		<div class="form-group">
+			<label for="personName">Person Name</label>
+			<input type="text" class="form-control" id="personName" ng-model="personName" placeholder="Enter Person Name" />
+		</div>
+		<div class="form-group">
+			<label for="profName">Profession</label>
+			<input type="text" class="form-control" id="profName" ng-model="profName" placeholder="Enter Profession" />
+		</div>
+		<button type="button" class="btn btn-default" ng-click="addPerson(personName,profName)">Add</button>
+	</form>
+</div>
