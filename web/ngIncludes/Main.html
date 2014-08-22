@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Recipe 02 example 01</title>
+		<script type="text/javascript" src="../scripts/angular.js"></script>
+		<script type="text/javascript" src="../scripts/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="../css/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css"></link>
+		<link rel="stylesheet" href="../css/bootstrap/css/bootstrap-theme.css"></link>
+		<script type="text/javaScript">
+			angular.module("MultiModuleApp",[]);
+		</script>
+		<script type="text/javaScript" src="PersonController.js"></script>
+		<script type="text/javaScript" src="StudentController.js"></script>
+	</head>
+	<body ng-app="MultiModuleApp">
+		<div class="container">
+			<div class="page-header">
+				<h3>Multiple Pages and modules Angular.js</h3>
+			</div>
+			<div class="row" ng-controller="studentCntrl">
+				<div class="col-md-5">
+					<ng-include src="'StudentForm.html'"></ng-include>
+				</div>
+				<div class="col-md-7">
+					<ng-include src="'StudentList.html'"></ng-include>
+				</div>
+			</div>
+			<div class="row" ng-controller="personCntrl">	
+				<div class="col-md-5">
+					<ng-include src="'PersonForm.html'"></ng-include>
+				</div>
+				<div class="col-md-7">
+					<ng-include src="'PersonList.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+	</body>		
+</html>
