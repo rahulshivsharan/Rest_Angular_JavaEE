@@ -1,0 +1,15 @@
+<form role="form">
+	<div class="form-group">
+		<label for="studentNameID">Name</label>
+		<input type="text"  class="form-control" id="studentNameID" ng-model="$parent.enteredName" />
+	</div>
+	<div class="form-group">
+		<label for="studentAgeID">Age</label>
+		<input type="text"  class="form-control" id="studentAgeID"  ng-model="$parent.enteredAge"/>
+	</div>
+	<div class="form-group">
+		<label for="studentMarksID">Marks</label>
+		<input type="text"  class="form-control" id="studentMarksID" ng-model="$parent.enteredMarks" />
+	</div>
+	<button type="button" class="btn btn-default" ng-click="addStudent(enteredName,enteredAge,enteredMarks)">Enter</button>
+</form>
