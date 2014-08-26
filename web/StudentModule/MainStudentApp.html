@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Main Student App</title>
+		<script src="../scripts/angular.js"></script>
+		<script src="../scripts/jquery-1.11.1.js"></script>
+		<script src="../css/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css"	href="../css/bootstrap/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css"	href="../css/bootstrap/css/bootstrap-theme.css"></link>
+		<script type="text/javascript">			
+			angular.module("MyStudentApp",['myController','StudentInfo']);			
+		</script>
+		<script src="main.js"></script>		
+		<script src="StudentInfo.js"></script>		
+	</head>
+	<body ng-app="MyStudentApp">
+		<div class="container" ng-controller="studentCntrl">
+			<div class="page-header">
+				<h3><strong>Student Info</strong></h3>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<ng-include src="'StudentForm.html'"></ng-include>
+				</div>
+				<div class="col-md-6"></div>
+				<div class="col-md-3">
+					 <student-info /> 
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<ng-include  src="'StudentList.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
