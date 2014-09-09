@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="StudentApplication">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Student C.R.U.D Tool</title>
+		<script src="../scripts/angular.js"></script>
+		<script src="../scripts/jquery-1.11.1.js"></script>
+		<script src="../css/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css"	href="../css/bootstrap/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css"	href="../css/bootstrap/css/bootstrap-theme.css"></link>
+		<script type="text/javaScript">
+			angular.module("StudentApplication",['ngRoute','MainModule']).config(function($routeProvider){
+				$routeProvider.when("/list",{
+					templateUrl : 'StudentList.html'
+				});
+				$routeProvider.when("/edit",{
+					templateUrl : 'EditStudent.html'
+				});
+				$routeProvider.when("/add",{
+					templateUrl : 'AddNewStudent.html'
+				});
+				$routeProvider.otherwise({
+					templateUrl : 'BasicInfo.html'
+				});
+			});			
+		</script>
+		<script src="Main.js"></script>
+		<script src="../scripts/angular-route.js"></script>
+	</head>
+	<body>
+		<div ng-controller="MainController" class="container">
+			<div class="page-header">
+				<h3>Student Info</h3>
+			</div>
+			<ng-view />			
+		</div>
+	</body>
+</html>
