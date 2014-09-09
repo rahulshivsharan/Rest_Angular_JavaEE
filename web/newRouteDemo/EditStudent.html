@@ -1,0 +1,26 @@
+<style type="text/css">
+	
+	span.error{
+		color : red;
+		font-weight : bold;
+	}
+</style>
+<form name="editStudentForm" role="form" novalidate>
+	
+	<div class="form-group">
+		<label for="editStudentName">Name</label>
+		<input class="form-control" name="name" id="editStudentName"  ng-model="selectedStudent.studentName" required />
+		<span class="error" ng-show="editStudentForm.name.$error.required">Please enter Name</span>
+	</div>
+	
+	<div class="form-group">
+		<label for="editStudentCollege">Select College</label>
+		<select id="editStudentCollege"  ng-model="selectedStudent.collegeId" ng-options="college.collegeId as college.collegeName for college in CollegList"></select>		
+	</div>
+	<button type="submit" 
+			ng-click="saveEditStudent()"
+			ng-disabled="editStudentForm.$invalid" 
+			class="btn btn-default">
+			Submit
+	</button>
+</form>
