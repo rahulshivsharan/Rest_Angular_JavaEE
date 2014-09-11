@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="StundentInfoApp">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Complete College Page</title>
+		<script src="../scripts/angular.js"></script>
+		<script src="../scripts/jquery-1.11.1.js"></script>
+		<script src="../css/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css"	href="../css/bootstrap/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css"	href="../css/bootstrap/css/bootstrap-theme.css"></link>
+		<script type="text/javaScript">
+			angular.module('StundentInfoApp',['MainModule','ngRoute','StudentModule','CollegeModule']).config(function($routeProvider){
+				$routeProvider.when("/studentList",{
+					templateUrl : 'student/list.html'
+				});
+				
+				$routeProvider.when("/collegeList",{
+					templateUrl : 'college/list.html'
+				});
+				
+				$routeProvider.when("/college/edit",{
+					templateUrl : 'college/editCollege.html'
+				});
+				
+				$routeProvider.when("/college/addPage",{
+					templateUrl : 'college/addCollege.html'
+				});
+				
+				
+				$routeProvider.when("/student/edit",{
+					templateUrl : 'student/editStudent.html'
+				});
+				
+				$routeProvider.when("/student/addPage",{
+					templateUrl : 'student/addStudent.html'
+				});
+				
+				$routeProvider.otherwise({
+					templateUrl : 'loadingPage.html'
+				});
+			});
+		</script>
+		<script src="MainModule.js"></script>
+		<script src="student/student.js"></script>
+		<script src="college/college.js"></script>
+		<script src="../scripts/angular-route.js"></script>
+	</head>
+	<body ng-controller="mainCntrl">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Student-Database</a>								
+				</div>
+				<button type="button" class="btn btn-default navbar-btn" ng-click="setScreen('College')">College Info</button>
+				<button type="button" class="btn btn-default navbar-btn" ng-click="setScreen('Student')">Student Info</button>		
+			</div>
+		</nav>
+		<div class="container">
+			<div class="well">
+				<div ng-include="getScreen()" />
+			</div>
+		</div>
+	</body>
+</html>
