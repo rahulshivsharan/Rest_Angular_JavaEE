@@ -281,4 +281,88 @@ public class MyRestService {
 		}
 		return studentList; 
 	}
+	
+	@POST
+	@Path("/collegeEntity/edit")
+	@Produces({MediaType.APPLICATION_JSON})	
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+	public List<CollegeEntity> updateAndFetchCollege(@FormParam("collegeName") String collegeName, @FormParam("collegeId") int collegeId){
+		List<CollegeEntity> collegeList = null;
+		Context envCtx = null;
+		Context ctx = null;
+		DataSource ds = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			envCtx = new InitialContext();
+			ctx = (Context) envCtx.lookup("java:/comp/env");
+			ds = (DataSource) ctx.lookup("java/mydb");
+			con = ds.getConnection();
+			ps = con.prepareStatement("update CollegeTBL set college_name = ? where college_id = ?");
+			ps.setString(1, collegeName);
+			ps.setInt(2, collegeId);
+			ps.executeUpdate();
+			
+			ps = con.prepareStatement("select college_id as collegeId,college_name as collegeName from CollegeTBL");
+			rs = ps.executeQuery();
+			collegeList = new ArrayList<CollegeEntity>();
+			while(rs.next()){
+				collegeList.add(new CollegeEntity(rs.getString("collegeName"), rs.getInt("collegeId")));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if(con != null && !con.isClosed()){
+					con.close();
+				}
+			}catch(SQLException sqle){
+				sqle.printStackTrace();
+			}
+		}
+		return collegeList;
+	}
+	
+	
+	@POST
+	@Path("/collegeEntity/add")
+	@Produces({MediaType.APPLICATION_JSON})	
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+	public List<CollegeEntity> addAndFetchCollege(@FormParam("collegeName") String collegeName){
+		List<CollegeEntity> collegeList = null;
+		Context envCtx = null;
+		Context ctx = null;
+		DataSource ds = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			envCtx = new InitialContext();
+			ctx = (Context) envCtx.lookup("java:/comp/env");
+			ds = (DataSource) ctx.lookup("java/mydb");
+			con = ds.getConnection();
+			ps = con.prepareStatement("insert into CollegeTBL values((select max(college_id) + 1 from CollegeTBL), ?)");
+			ps.setString(1, collegeName);			
+			ps.executeUpdate();
+			
+			ps = con.prepareStatement("select college_id as collegeId,college_name as collegeName from CollegeTBL");
+			rs = ps.executeQuery();
+			collegeList = new ArrayList<CollegeEntity>();
+			while(rs.next()){
+				collegeList.add(new CollegeEntity(rs.getString("collegeName"), rs.getInt("collegeId")));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if(con != null && !con.isClosed()){
+					con.close();
+				}
+			}catch(SQLException sqle){
+				sqle.printStackTrace();
+			}
+		}
+		return collegeList;
+	}
 }
