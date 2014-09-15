@@ -1,0 +1,27 @@
+<style type="text/css">
+	
+	span.error{
+		color : red;
+		font-weight : bold;
+	}
+</style>
+<form name="addCollegeForm" role="form" novalidate>
+	
+	<div class="form-group">
+		<label for="addCollegeName">Name</label>
+		<input class="form-control" name="name" id="addCollegeName"  ng-model="collegeCntrl.newCollege.collegeName" required />
+		<span class="error" ng-show="addCollegeForm.name.$error.required">Please enter Name</span>
+	</div>
+		
+	<button type="submit" 
+			ng-click="collegeCntrl.saveAddCollege()"
+			ng-disabled="addCollegeForm.$invalid" 
+			class="btn btn-default">
+			Submit
+	</button>
+	<button type="submit" 
+			ng-click="collegeCntrl.cancel()"			
+			class="btn btn-default">
+			Cancel
+	</button>
+</form>
