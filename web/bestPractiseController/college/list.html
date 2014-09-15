@@ -1,0 +1,25 @@
+<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>College-ID</th>
+				<th>College-Name</th>				
+				<th>Edit College</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="college in collegeCntrl.collegeList | orderBy : 'collegeName'">
+				<td>{{college.collegeId}}</td>
+				<td>{{college.collegeName}}</td>										
+				<td>
+					<a href="#/college/edit" class="btn btn-primary" ng-click="collegeCntrl.editCollege(college)">Edit</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+		    <tr>
+		      <td colspan="4">
+		      	<a href="#/college/addPage" class="btn btn-primary active">Add College</a>
+		      </td>		      
+		    </tr>
+  		</tfoot>
+</table>
