@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="MyDemoApp">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Consume Student</title>
+		<script src="scripts/angular.js"></script>
+		<script src="scripts/angular-resource.js"></script>
+		<script type="text/javaScript">
+			angular.module("MyDemoApp",['ngResource'])
+			.factory("StudentFactoryOne",function($resource){
+				return $resource("rest/student/demo/list",{},{
+							query : {
+								method: 'GET',
+								isArray : true
+							}
+						})
+			})
+			.factory("StudentFactoryTwo",function($resource){
+				return $resource("rest/student/demo/list/:id",{
+					query : {
+						method: 'GET',
+						isArray : true
+					}
+				})
+			})			
+			.factory("StudentFactoryThree",function($resource){
+				return $resource("rest/student/demo/save",{
+					update : {
+						method: 'POST',
+						isArray : false
+					}
+				})
+			}).controller("DemoCntrl",function(StudentFactoryOne,StudentFactoryTwo,StudentFactoryThree){
+				this.doIt = function(){
+					
+					var student = new StudentFactoryThree({
+						studentId : 123,
+						studentName : "Amit Gangurde",
+						collegeId:23,
+						collegeName: "Vivek College"
+					});
+					student.$save();
+										
+					this.studentListOne = StudentFactoryOne.query();
+					this.studentListTwo = StudentFactoryTwo.query({id : 345});
+					
+				}
+			});		
+		</script>
+	</head>
+	<body ng-controller="DemoCntrl as demoController">
+		<input type="button" ng-click="demoController.doIt()" value="Enter" />
+		<ul ng-repeat="student in demoController.studentListOne">
+			<li>{{student.studentName}}, {{student.collegeName}}</li>
+		</ul>
+		<br/><br/>
+		<ul ng-repeat="student in demoController.studentListTwo">
+			<li>{{student.studentName}}, {{student.collegeName}}</li>
+		</ul>
+	</body>
+</html>
