@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="MyDemoApp">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Consume Student</title>
+		<script src="scripts/angular.js"></script>
+		<script src="scripts/angular-resource.js"></script>
+		<script type="text/javaScript">
+			angular.module("MyDemoApp",['ngResource'])
+			.factory("StudentFactory",function($resource){
+				return $resource("rest/studentTwo",{},{
+							queryOne : {
+								method: 'GET',
+								isArray : true
+							},
+							queryTwo : {
+								method: 'GET',
+								isArray : true,
+								url : 'rest/studentTwo/:collegeId',
+								params : {
+									collegeId : '@colId' 
+								}
+							},
+							queryThree : {
+								method: 'POST',
+								isArray : false,
+								url : 'rest/studentTwo/saveOne'
+							},
+							queryFour : {
+								method: 'POST',
+								isArray : false,
+								url : 'rest/studentTwo/saveOne/:city',
+								params : {
+									city : '@cityName' 	
+								}							
+							}
+						})
+			})
+			.controller("DemoCntrl",function(StudentFactory){
+				this.doIt = function(){
+					
+					this.studentListOne = StudentFactory.queryOne();
+					this.studentListTwo = StudentFactory.queryTwo({},{'colId' : 10});
+					
+					StudentFactory.queryThree({
+						studentId : 7,
+						studentName : "James Dominic Bond",
+						collegeId:23,
+						collegeName: "Jatashankar Dosa College"
+					});
+					
+					StudentFactory.queryFour({
+						studentId : 17,
+						studentName : "Leonardo Di Caprio",
+						collegeId: 123,
+						collegeName: "Barclays University",
+						'cityName' : "Pune"
+					});
+				}
+			});		
+		</script>
+	</head>
+	<body ng-controller="DemoCntrl as demoController">
+		<input type="button" ng-click="demoController.doIt()" value="Enter" />
+		<ul ng-repeat="student in demoController.studentListOne">
+			<li>{{student.studentName}}, {{student.collegeName}}</li>
+		</ul>	
+		<br/><br/>
+		<ul ng-repeat="student in demoController.studentListTwo">
+			<li>{{student.studentName}}, {{student.collegeName}}</li>
+		</ul>		
+	</body>
+</html>
