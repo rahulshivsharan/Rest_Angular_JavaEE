@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="MyDemoApp">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Consume Student</title>
+		<script src="scripts/angular.js"></script>
+		<script src="scripts/angular-resource.js"></script>
+		<script type="text/javaScript">
+			angular.module("MyDemoApp",['ngResource'])
+			.factory("StudentFactory",function($resource){
+				return $resource("rest/studentTwo/:collegeId",{
+								collegeId : '@colId'
+							},{
+							query : {
+								method: 'GET',
+								isArray : true
+							}
+						})
+			})
+			.controller("DemoCntrl",function(StudentFactory){
+				this.doIt = function(){	
+					this.studentListOne = StudentFactory.query();
+					this.studentListTwo = StudentFactory.query({},{'colId' : 10});
+					
+				}
+			});		
+		</script>
+	</head>
+	<body ng-controller="DemoCntrl as demoController">
+		<input type="button" ng-click="demoController.doIt()" value="Enter" />
+		<ul ng-repeat="student in demoController.studentListOne">
+			<li>{{student.studentName}}, {{student.collegeName}}</li>
+		</ul>	
+		<br/><br/>
+		<ul ng-repeat="student in demoController.studentListTwo">
+			<li>{{student.studentName}}, {{student.collegeName}}</li>
+		</ul>		
+	</body>
+</html>
