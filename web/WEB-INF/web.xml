@@ -18,6 +18,14 @@
   		<param-name>javax.ws.rs.core.Application</param-name>
   		<param-value>com.service.MyRestService</param-value>
   	</init-param>
+  	<init-param>
+  		<param-name>javax.ws.rs.core.Application</param-name>
+  		<param-value>com.service.StudentService</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>javax.ws.rs.core.Application</param-name>
+  		<param-value>com.service.MyStudentRestService</param-value>
+  	</init-param>
   </servlet>
   
   <servlet-mapping>
