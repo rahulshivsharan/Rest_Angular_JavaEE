@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4>Liquor Brands in India</h4>
+	</div>
+	<div class="panel-body">
+		<table class="table tripped-table">
+			<tr>
+				<th>Name</th>
+				<th>Type</th>				
+			</tr>
+			<tr ng-repeat="liq in liqourList">
+				<td>{{liq.name}}</td>
+				<td>{{liq.type}}</td>				
+			</tr>
+		</table>
+	</div>
+</div>
