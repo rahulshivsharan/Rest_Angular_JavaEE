@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myReportCard">
+<head>
+<meta charset="ISO-8859-1">
+<title>UI-View Basic 01</title>
+<script src="../../scripts/angular.js"></script>
+<script src="../../scripts/angular-ui-router.js"></script>
+<script src="../../scripts/jquery-1.11.1.js"></script>
+<script src="../../css/bootstrap/js/bootstrap.js"></script>
+<script src="app.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../css/bootstrap/css/bootstrap.css"></link>
+<link rel="stylesheet" type="text/css"
+	href="../../css/bootstrap/css/bootstrap-theme.css"></link>
+</head>
+<body ng-controller="reportCardCtrl">
+	<div class="container">
+		<div class="page-header">
+			<h3>My Students Report-Card</h3>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-pills">
+						<li role="presentation" ng-repeat="sub in subjectList">
+							<a ng-href="#/subject/{{sub.id}}">{{sub.name}}</a>
+						</li>						
+					</ul>
+				</div>
+			</div>
+			<div class="row" ui-view></div>
+		</div>
+	</div>
+</body>
+</html>
