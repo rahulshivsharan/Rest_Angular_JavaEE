@@ -72,10 +72,11 @@ public class MyStudentRestService {
 		return studentList;
 	}
 	
-	@GET	
+	@GET
 	@Path("/{collegeId}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public List<StudentEntity> listStudentByCollege(@PathParam("collegeId") int collegeId){
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<StudentEntity> listStudentByCollege(
+			@PathParam("collegeId") int collegeId) {
 		List<StudentEntity> studentList = null;
 		Context envCtx = null;
 		Context ctx = null;
@@ -83,39 +84,44 @@ public class MyStudentRestService {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		StringBuffer  studentQuery = null;
-		try{
+		StringBuffer studentQuery = null;
+		try {
 			envCtx = new InitialContext();
 			ctx = (Context) envCtx.lookup("java:/comp/env");
 			ds = (DataSource) ctx.lookup("java/mydb");
 			con = ds.getConnection();
-			studentList = new ArrayList<StudentEntity>(); 
+			studentList = new ArrayList<StudentEntity>();
 			studentQuery = new StringBuffer();
 			studentQuery.append("SELECT a.st_id        AS StudentId, ");
 			studentQuery.append("       a.st_name      AS StudentName, ");
 			studentQuery.append("       b.college_name AS CollegeName, ");
-			studentQuery.append("       b.college_id   AS collegeId ");
+			studentQuery.append("       b.college_id   AS collegeId, a.marks as MarksScored ");
 			studentQuery.append("FROM   studenttbl a, ");
 			studentQuery.append("       collegetbl b ");
 			studentQuery.append("WHERE  a.st_college = b.college_id ");
 			studentQuery.append("AND 	b.college_id = ? ");
-			
+
 			ps = con.prepareStatement(studentQuery.toString());
 			ps.setInt(1, collegeId);
 			rs = ps.executeQuery();
-			
-			while(rs.next()){
-				studentList.add(new StudentEntity(rs.getInt("StudentId"),rs.getString("StudentName"),rs.getInt("collegeId"),rs.getString("CollegeName")));
+
+			while (rs.next()) {
+				studentList.add(new StudentEntity(	rs.getInt("StudentId"),
+													rs.getString("StudentName"), 
+													rs.getInt("collegeId"), 
+													rs.getString("CollegeName"),
+													rs.getInt("MarksScored")
+												));
 			}
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
-				if(con != null && !con.isClosed()){
+		} finally {
+			try {
+				if (con != null && !con.isClosed()) {
 					con.close();
 				}
-			}catch(SQLException sqle){
+			} catch (SQLException sqle) {
 				sqle.printStackTrace();
 			}
 		}
