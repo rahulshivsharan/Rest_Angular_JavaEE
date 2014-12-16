@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="StudentApp">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		<script src="../../scripts/angular.js"></script>
+		<script src="../../scripts/angular-resource.js"></script>
+		<script src="../../scripts/angular-ui-router.js"></script>
+		<script src="../../scripts/jquery-1.11.1.js"></script>
+		<script src="../../css/bootstrap/js/bootstrap.js"></script>
+		<script src="main.js"></script>
+		<link rel="stylesheet" type="text/css"	href="../../css/bootstrap/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css"	href="../../css/bootstrap/css/bootstrap-theme.css"></link>			
+	</head>
+	<body ng-controller="studentAppCtrl">
+		<div class="container">
+			<div class="page-header">
+				<h3>Student App Demo</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-5 col-md-offset-7">					
+					<ul class="nav nav-pills">
+						<li ng-class="{active : selectedCity == city}" ng-repeat="city in cityList">
+							<a href="#" ng-click="setSelectedCity(city)">{{city}}</a>
+						</li>
+					</ul>
+				</div>
+			</div><!-- div row  -->
+			<ui-view />
+		</div><!-- container div  -->
+	</body>
+</html>
