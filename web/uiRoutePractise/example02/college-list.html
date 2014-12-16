@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="nav nav-pills nav-stacked">
+			<li ng-repeat="col in collegeList" ng-class="{active : selectedCollege == col.collegeId}">
+				<a href="#" ng-click="setSelectedCollege(col.collegeId)">{{col.collegeName}}</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<ui-view />
+	</div>
+</div>
