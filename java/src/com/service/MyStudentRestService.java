@@ -143,4 +143,85 @@ public class MyStudentRestService {
 		System.out.println("City Name --> "+city);
 	}
 	
+	@GET
+	@Path("/colleges")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<String> getColleges() {
+		List<String> collegeList = null;
+		Context envCtx = null;
+		Context ctx = null;
+		DataSource ds = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			collegeList = new ArrayList<String>();
+			envCtx = new InitialContext();
+			ctx = (Context) envCtx.lookup("java:/comp/env");
+			ds = (DataSource) ctx.lookup("java/mydb");
+			con = ds.getConnection();
+			ps = con.prepareStatement("select distinct city from COLLEGETBL");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				collegeList.add(rs.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+
+			try {
+				if (con != null && !con.isClosed())
+					con.close();
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+
+		}
+
+
+		return collegeList;
+	}
+
+	@GET
+	@Path("/colleges/{cityName}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<CollegeEntity> getColleges(
+			@PathParam("cityName") String cityName) {
+		List<CollegeEntity> collegeList = null;
+		Context envCtx = null;
+		Context ctx = null;
+		DataSource ds = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			collegeList = new ArrayList<CollegeEntity>();
+			envCtx = new InitialContext();
+			ctx = (Context) envCtx.lookup("java:/comp/env");
+			ds = (DataSource) ctx.lookup("java/mydb");
+			con = ds.getConnection();
+			ps = con.prepareStatement("select college_Id, college_name from COLLEGETBL where city = ?");
+			ps.setString(1, cityName);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				collegeList.add(new CollegeEntity(rs.getString("college_name"),rs.getInt("college_Id"),collegeName));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (con != null && !con.isClosed())
+					con.close();
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+
+		}
+
+		return collegeList;
+	}
+
+	
 }
