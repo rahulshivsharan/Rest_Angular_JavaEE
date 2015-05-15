@@ -35,6 +35,37 @@ public class MyRestService {
 		return "Hi from REST is it OK";		
 	}
 	
+		@GET
+	@Path("/out/{num}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public MyClass getOutput(@PathParam("num") String num){
+		return new MyClass(num);
+	}
+	
+	@GET
+	@Path("/person/list2/{num}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public List<PersonVO> getPersonList2(@PathParam("num") String num) throws Exception{
+		List<PersonVO> list = new ArrayList<PersonVO>();
+		Thread.currentThread().sleep(4000);
+		
+		if(num.equals("two")){
+			list.add(new PersonVO("Rahul Shivsharan", 123));
+			list.add(new PersonVO("Mehul Sarnikar", 34));
+			list.add(new PersonVO("Praful Patel", 343));	
+		}else if(num.equals("three")){
+			list.add(new PersonVO("Sohel Mallik", 634));
+			list.add(new PersonVO("Jignesh Patel", 734));
+			list.add(new PersonVO("Abhi Gaurang Singh", 534));
+		}else{
+			throw new Exception("Some Exception");						
+		}
+		
+		
+		return list;
+	}
+
+	
 	@GET
 	@Path("/person/list")
 	@Produces({MediaType.APPLICATION_JSON})
