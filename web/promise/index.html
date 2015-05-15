@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		<script type="text/javaScript" src="../scripts/angular.js"></script>
+		<script src="../scripts/angular-resource.js"></script>
+		<script type="text/javascript">
+			var myApp = angular.module("myApp",['ngResource']);
+			myApp.factory("CountService",function($resource){
+				return $resource("../rest/ser/out/:num",{
+					num : "@num"
+				});				
+			}).factory("PersonService",function($resource,CountService,$interval){
+				var obj = new Object();
+				
+				obj.getPersonList = function(inputTxt){
+										
+					return CountService.get({
+						"num" : inputTxt
+					}).$promise.then(function(response){
+						var url = "../rest/ser/person/list2/";
+						if(response.num === "2"){
+							url += "two";
+						}else if(response.num === "3"){
+							url += "three";
+						}else{
+							url +=  "other";
+						}
+						return $resource(url,{});
+					});
+				};
+				return obj;
+			}).controller("myCtrl",function($scope,PersonService){
+				$scope.getInfo = function(){
+					PersonService.getPersonList($scope.inputTxt).then(function(resource){
+						return resource.query().$promise;
+					}).then(function(response){
+						$scope.personList = response;
+					},function(error){
+						console.log("error occurred");
+					});
+				}
+			});
+		</script>
+	</head>
+	<body ng-controller="myCtrl">
+		<h1>{{num}}</h1>
+		<br />
+		<input type="text" ng-model="inputTxt" /><br/><br/>
+		<input type="button" value="ENTER" ng-click="getInfo()" />
+		<br /><br /><br />
+		<table border="2">
+			<tr ng-repeat="per in personList">
+				<td>{{per.personName}}</td>
+				<td>{{per.personId}}</td>
+			</tr>
+		</table>
+	</body>
+</html>
