@@ -1,0 +1,9 @@
+<div class="container">
+	<p>College Page</p>
+	<h4 ng-class="{'error' : (vm.response === 'error'),'success' : (vm.response === 'success')}">{{vm.msg}}</h4>
+	<div ng-if="vm.response === 'success'">
+		<ul style="font-style: italic">
+			<li ng-repeat="college in vm.list">{{college.collegeName}}</li>
+		</ul>
+	</div>
+</div>
